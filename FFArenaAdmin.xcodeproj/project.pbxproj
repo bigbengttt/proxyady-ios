@@ -1,0 +1,59 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+/* Begin PBXBuildFile section */
+		000000000000000000000065 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000001 /* App.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		000000000000000000000001 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		000000000000000000000201 /* FFArenaAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FFArenaAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		000000000000000000000301 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000000000000000000000401 = {isa = PBXGroup; children = ( 000000000000000000000402 /* FFArenaAdmin */, 000000000000000000000403 /* Products */ ); sourceTree = "<group>"; };
+		000000000000000000000402 /* FFArenaAdmin */ = {isa = PBXGroup; children = (
+				000000000000000000000001 /* App.swift */,
+			); path = FFArenaAdmin; sourceTree = "<group>"; };
+		000000000000000000000403 /* Products */ = {isa = PBXGroup; children = ( 000000000000000000000201 /* FFArenaAdmin.app */ ); name = Products; sourceTree = "<group>"; };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		000000000000000000000501 /* FFArenaAdmin */ = {isa = PBXNativeTarget; buildConfigurationList = 000000000000000000000901 /* Build configuration list for PBXNativeTarget "FFArenaAdmin" */; buildPhases = ( 000000000000000000000601 /* Sources */, 000000000000000000000301 /* Frameworks */, 000000000000000000000701 /* Resources */ ); buildRules = ( ); dependencies = ( ); name = FFArenaAdmin; productName = FFArenaAdmin; productReference = 000000000000000000000201 /* FFArenaAdmin.app */; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		000000000000000000000801 /* Project object */ = {isa = PBXProject; attributes = {LastSwiftUpdateCheck = 1500; LastUpgradeCheck = 1500; TargetAttributes = {000000000000000000000501 = {CreatedOnToolsVersion = 15.0; }; }; }; buildConfigurationList = 000000000000000000000902 /* Build configuration list for PBXProject "FFArenaAdmin" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = ( en, Base ); mainGroup = 000000000000000000000401; productRefGroup = 000000000000000000000403 /* Products */; projectDirPath = ""; projectRoot = ""; targets = ( 000000000000000000000501 /* FFArenaAdmin */ ); };
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		000000000000000000000701 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = ( ); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		000000000000000000000601 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				000000000000000000000065 /* App.swift in Sources */,
+			); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		000000000000000000001001 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; IPHONEOS_DEPLOYMENT_TARGET = 14.0; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; }; name = Debug; };
+		000000000000000000001002 /* Release */ = {isa = XCBuildConfiguration; buildSettings = { ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; IPHONEOS_DEPLOYMENT_TARGET = 14.0; SDKROOT = iphoneos; SWIFT_VERSION = 5.0; }; name = Release; };
+		000000000000000000001003 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_IDENTITY = ""; CODE_SIGNING_ALLOWED = NO; CODE_SIGNING_REQUIRED = NO; CODE_SIGN_STYLE = Manual; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "FF Arena Admin"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait; IPHONEOS_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.proxyady.ffarena.admin; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; }; name = Debug; };
+		000000000000000000001004 /* Release */ = {isa = XCBuildConfiguration; buildSettings = { CODE_SIGN_IDENTITY = ""; CODE_SIGNING_ALLOWED = NO; CODE_SIGNING_REQUIRED = NO; CODE_SIGN_STYLE = Manual; CURRENT_PROJECT_VERSION = 1; GENERATE_INFOPLIST_FILE = YES; INFOPLIST_KEY_CFBundleDisplayName = "FF Arena Admin"; INFOPLIST_KEY_UILaunchScreen_Generation = YES; INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait; IPHONEOS_DEPLOYMENT_TARGET = 14.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.proxyady.ffarena.admin; PRODUCT_NAME = "$(TARGET_NAME)"; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = 1; }; name = Release; };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		000000000000000000000902 /* Build configuration list for PBXProject "FFArenaAdmin" */ = {isa = XCConfigurationList; buildConfigurations = ( 000000000000000000001001 /* Debug */, 000000000000000000001002 /* Release */ ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		000000000000000000000901 /* Build configuration list for PBXNativeTarget "FFArenaAdmin" */ = {isa = XCConfigurationList; buildConfigurations = ( 000000000000000000001003 /* Debug */, 000000000000000000001004 /* Release */ ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = 000000000000000000000801 /* Project object */;
+}

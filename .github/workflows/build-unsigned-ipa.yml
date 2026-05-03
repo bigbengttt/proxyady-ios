@@ -1,0 +1,81 @@
+name: Build Unsigned IPA
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build_unsigned_ipa:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode
+        run: xcodebuild -version
+
+      - name: Find project and scheme
+        id: findproj
+        shell: bash
+        run: |
+          set -e
+          WORKSPACE=$(find . -maxdepth 4 -name "*.xcworkspace" | head -n 1 || true)
+          PROJECT=$(find . -maxdepth 4 -name "*.xcodeproj" | head -n 1 || true)
+          if [ -n "$WORKSPACE" ]; then
+            echo "type=workspace" >> "$GITHUB_OUTPUT"
+            echo "path=$WORKSPACE" >> "$GITHUB_OUTPUT"
+            BASE=$(basename "$WORKSPACE" .xcworkspace)
+            SCHEMES=$(xcodebuild -list -workspace "$WORKSPACE" 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag{gsub(/^[ \t]+/,"");print}' | head -n 1)
+          elif [ -n "$PROJECT" ]; then
+            echo "type=project" >> "$GITHUB_OUTPUT"
+            echo "path=$PROJECT" >> "$GITHUB_OUTPUT"
+            BASE=$(basename "$PROJECT" .xcodeproj)
+            SCHEMES=$(xcodebuild -list -project "$PROJECT" 2>/dev/null | awk '/Schemes:/{flag=1;next}/^$/{flag=0}flag{gsub(/^[ \t]+/,"");print}' | head -n 1)
+          else
+            echo "Nenhum .xcodeproj ou .xcworkspace encontrado"
+            exit 1
+          fi
+          SCHEME="${SCHEMES:-$BASE}"
+          echo "scheme=$SCHEME" >> "$GITHUB_OUTPUT"
+          echo "Projeto: $BASE | Scheme: $SCHEME"
+
+      - name: Build app without signing
+        shell: bash
+        run: |
+          set -e
+          TYPE="${{ steps.findproj.outputs.type }}"
+          PATHPROJ="${{ steps.findproj.outputs.path }}"
+          SCHEME="${{ steps.findproj.outputs.scheme }}"
+          if [ "$TYPE" = "workspace" ]; then
+            xcodebuild -workspace "$PATHPROJ" -scheme "$SCHEME" -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          else
+            xcodebuild -project "$PATHPROJ" -scheme "$SCHEME" -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          fi
+
+      - name: Fix Info.plist for GBox and package IPA
+        shell: bash
+        run: |
+          set -e
+          APP=$(find build -path "*Release-iphoneos/*.app" -type d | head -n 1)
+          if [ -z "$APP" ]; then
+            echo "Nenhum .app encontrado"
+            find build -maxdepth 8 -type d || true
+            exit 1
+          fi
+          PLIST="$APP/Info.plist"
+          EXEC=$(basename "$APP" .app)
+          /usr/libexec/PlistBuddy -c "Set :CFBundlePackageType APPL" "$PLIST" 2>/dev/null || /usr/libexec/PlistBuddy -c "Add :CFBundlePackageType string APPL" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Print :CFBundleExecutable" "$PLIST" >/dev/null 2>&1 || /usr/libexec/PlistBuddy -c "Add :CFBundleExecutable string $EXEC" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$PLIST"
+          rm -rf Payload unsigned_ipa
+          mkdir -p Payload unsigned_ipa
+          cp -R "$APP" Payload/
+          /usr/bin/zip -qry unsigned_ipa/unsigned.ipa Payload
+          ls -lh unsigned_ipa/unsigned.ipa
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: unsigned-ipa
+          path: unsigned_ipa/unsigned.ipa
